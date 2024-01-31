@@ -113,9 +113,9 @@ const DetailPage = () => {
       </DetailIntroBox>
       <ButtonContainer onClick={() => setOpen(!open)}>더 자세한 정보</ButtonContainer>
       <div className="SheetContainer">
-        <button className="SheetButton" onClick={() => setOpen(!open)}>Open</button>
         <BottomSheet 
           open={open}
+          snapPoints={({ minHeight, maxHeight }) => [minHeight * 7, maxHeight * 0.5]}
           onDismiss={handleDismiss}
         >
           <div className="SheetBox">box</div>
