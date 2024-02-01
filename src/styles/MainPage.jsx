@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Colors } from './Colors';
+import { Link } from 'react-router-dom';
 
 export const Main = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ export const SearchInput = styled.input`
 export const GreenContainer = styled.div`
   background-color: ${Colors.main2};
   border-radius: 0 0 25px 25px;
-  box-shadow: 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 100%;
   height: 32vh;
   display: flex;
@@ -30,8 +31,10 @@ export const GreenContainer = styled.div`
 `;
 
 export const Container = styled.div`
+  width: 85%;
   display: flex;
-  gap: 50px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 `;
 
 export const ContentBox = styled.div`
@@ -40,7 +43,34 @@ export const ContentBox = styled.div`
   height: 22vw;
   max-width: 300px;
   max-height: 450px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
-  padding: 30px;
+  padding: 24px;
+`;
+export const Title = styled.div`
+  font-size: 22px;
+  font-weight: bold;
+`;
+export const SquareBtn = styled.button`
+  background-color: ${Colors.main3};
+  color: #fff;
+  border-radius: 0px;
+  width: 100%;
+  margin-top: 30px;
+`;
+export const LoginInput = styled.input`
+  width: calc(100% - 20px);
+  border-radius: 3px;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+  padding: 10px;
+  margin-top: 20px;
+`;
+
+export const StyledLink = styled(Link)`
+  color: #000;
+  font-size: 10px;
+  :hover {
+    color: ${Colors.green8};
+  }
 `;
