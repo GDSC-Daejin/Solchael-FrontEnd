@@ -1,20 +1,18 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from "swiper/modules";
+import { Autoplay } from 'swiper/modules';
 import styled from 'styled-components';
 
-import "swiper/css/pagination";
+import 'swiper/css/pagination';
 import 'swiper/css';
 
-import { FaSearch } from "react-icons/fa";
+import { FaSearch } from 'react-icons/fa';
 import { Colors } from '../styles/Colors';
 
 import Cold from '../imgs/감기.png';
 import Indigestion from '../imgs/소화불량.png';
 import Headache from '../imgs/두통.png';
 
-
-const RecommendContainer = styled.div`
-`
+const RecommendContainer = styled.div``;
 
 const RecommendTopbox = styled.div`
   display: flex;
@@ -24,7 +22,7 @@ const RecommendTopbox = styled.div`
   @media screen and (max-width: 460px) {
     height: 300px;
   }
-`
+`;
 
 const SearchContainer = styled.div`
   display: flex;
@@ -34,7 +32,7 @@ const SearchContainer = styled.div`
     height: 50px;
     padding: 10px 40px;
     font-size: 2rem;
-    outline: none;
+    outline: 3px solid ${Colors.main3};
     border: none;
     border-radius: 30px;
     @media screen and (max-width: 460px) {
@@ -50,12 +48,13 @@ const SearchContainer = styled.div`
     padding: 20px;
     background-color: ${Colors.main3};
     border-radius: 0px 30px 30px 0px;
+    outline: 3px solid ${Colors.main3};
     cursor: pointer;
     @media screen and (max-width: 460px) {
       padding: 13px;
     }
   }
-`
+`;
 
 const SwiperContainer = styled.div`
   padding: 30px;
@@ -103,15 +102,15 @@ const SwiperContainer = styled.div`
       }
     }
   }
-`
+`;
 
 const RecommendPage = () => {
   return (
     <RecommendContainer>
       <RecommendTopbox>
         <SearchContainer>
-          <input type="text" placeholder='질병 이름을 입력해 보세요.' />
-          <FaSearch className='search_icon' size={30} />
+          <input type="text" placeholder="질병 이름을 입력해 보세요." />
+          <FaSearch className="search_icon" size={30} />
         </SearchContainer>
       </RecommendTopbox>
       <SwiperContainer>
@@ -121,35 +120,35 @@ const RecommendPage = () => {
           slidesPerView={3}
           autoplay={{
             delay: 2000,
-            disableOnInteraction: false
+            disableOnInteraction: false,
           }}
           breakpoints={{
             300: {
               slidesPerView: 2,
-              spaceBetween: 30
+              spaceBetween: 30,
             },
             900: {
               slidesPerView: 3,
-              spaceBetween: 40
-            }
+              spaceBetween: 40,
+            },
           }}
           onSlideChange={() => console.log('slide change')}
         >
-          <SwiperSlide className='slide'>
+          <SwiperSlide className="slide">
             <img src={Cold} alt="#" />
             <div>
               <h1>감기</h1>
               <button>필요한 약 보러 가기</button>
             </div>
           </SwiperSlide>
-          <SwiperSlide className='slide'>
+          <SwiperSlide className="slide">
             <img src={Indigestion} alt="#" />
             <div>
               <h1>소화불량</h1>
               <button>필요한 약 보러 가기</button>
             </div>
           </SwiperSlide>
-          <SwiperSlide className='slide'>
+          <SwiperSlide className="slide">
             <img src={Headache} alt="#" />
             <div>
               <h1>두통</h1>
@@ -159,7 +158,7 @@ const RecommendPage = () => {
         </Swiper>
       </SwiperContainer>
     </RecommendContainer>
-  )
-}
+  );
+};
 
-export default RecommendPage
+export default RecommendPage;
