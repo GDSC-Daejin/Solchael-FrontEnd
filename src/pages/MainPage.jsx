@@ -1,7 +1,6 @@
 import Search from '../components/Search';
 import {
   Main,
-  SearchInput,
   Container,
   ContentBox,
   SquareBtn,
