@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { BottomSheet } from 'react-spring-bottom-sheet';
+import axios from 'axios';
 
 import 'react-spring-bottom-sheet/dist/style.css'
 
@@ -7,8 +7,12 @@ import styled from 'styled-components';
 
 import { Colors } from '../styles/Colors';
 import Pill from '../imgs/알약.png';
-import Pills from '../imgs/알약들.png';   // 임시 이미지
 import Navbar from "../components/Navbar";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { useState } from 'react';
+
+import notFoundImg from "../imgs/notfoundImg.jpeg";
 
 const DetailContainer = styled.div`
   position: relative;
@@ -91,7 +95,7 @@ const ButtonContainer = styled.button`
 `
 
 const SheetBox = styled.div`
-  margin-top: 30px;
+  margin: 50px 0px;
   text-align: center;
   border-top: 1px solid #E0E0E0;
   img {
@@ -113,12 +117,26 @@ const SheetBox = styled.div`
 `
 
 const DetailPage = () => {
-  
+
+  const {id} = useParams();
   const [open, setOpen] = useState(false);
+
+  const fetchDetailPill = async () => {
+    const response = await axios.get(`http://35.216.98.123:8080/api/v1/medicine/${id}`);
+    return response.data;
+  }
+
+  const {data, isError, isLoading} = useQuery({
+    queryKey: ["findDetailPill"],
+    queryFn: fetchDetailPill
+  })
 
   const handleDismiss = () => {
     setOpen(false)
   }
+
+  if(isError) return <p>에러가 발생했습니다..</p>
+  if(isLoading) return <p>로딩중입니다..</p>
 
   return (
     <>
@@ -130,11 +148,11 @@ const DetailPage = () => {
         </div>
       </DetailImgBox>
       <DetailIntroBox>
-        <h1>게보린</h1>
+        <h1>{data?.name}</h1>
         <h1>사용법</h1>
-        <p>이걸 사용하려면 어쩌구 저쩌구 이러쿵 저러쿵 뚝딱뚝딱 이렇게 저렇게...</p>
-        <h1>효능</h1>
-        <p>게보린은 한국인에게 가장 친근한 진통제중 하나로 심한 통증이라도 투약 후 5 ~ 20분 이내에 효과가 나타납니다.</p>
+        <p>{data?.useMethodQesitm}</p>
+        <h1>부작용</h1>
+        <p>{data?.efcyQesitm}</p>
       </DetailIntroBox>
       <ButtonContainer onClick={() => setOpen(!open)}>더 자세한 정보</ButtonContainer>
       <BottomSheet 
@@ -144,19 +162,15 @@ const DetailPage = () => {
       >
         <SheetBox>
           <h1>약 제품 사진</h1>
-          <img src={Pills} alt="#" />
+          <img src={data?.itemImage ?? notFoundImg} alt="#" />
         </SheetBox>
         <SheetBox>
           <h1>주의 사항</h1>
-          <p>복용하는 동안 고열을 동반하고, 발진, 발적, 가려움, 화상 모양의 수포 등 심한 증상이 전신 피부, 입과 눈의 점막에 나타나는 경우, 또는 구토, 변비, 식요욕부진 증상이 나타나면 복용을 중지하고 약사와 상의하세요</p>
+          <p>{data?.atpnQesitm}</p>
         </SheetBox>
         <SheetBox>
-          <h1>부작용</h1>
-          <p>이걸 먹으면 두드러기가 발생하고 호흡곤란...</p>
-        </SheetBox>
-        <SheetBox>
-          <h1>보관법</h1>
-          <p>어쩌구 저쩌구</p>
+          <h1>주의 사항-2</h1>
+          <p>{data?.seQesitm}</p>
         </SheetBox>
       </BottomSheet>
     </DetailContainer>

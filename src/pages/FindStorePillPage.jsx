@@ -11,6 +11,9 @@ import { Colors } from '../styles/Colors';
 import Cold from '../imgs/감기.png';
 import Indigestion from '../imgs/소화불량.png';
 import Headache from '../imgs/두통.png';
+import { useState } from 'react';
+import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 
 const RecommendContainer = styled.div`
@@ -105,13 +108,27 @@ const SwiperContainer = styled.div`
   }
 `
 
-const RecommendPage = () => {
+const FindStorePillPage = () => {
+
+  const navigate = useNavigate();
+  const [disease, setDisease] = useState("");
+
+  const onHandleChange = (e) => {
+    setDisease(e.target.value)
+  }
+
+  const onHandleClick = () => {
+    navigate(`/storepill/${disease}`)
+  }
+
   return (
+    <>
+    <Navbar/>
     <RecommendContainer>
       <RecommendTopbox>
         <SearchContainer>
-          <input type="text" placeholder='질병 이름을 입력해 보세요.' />
-          <FaSearch className='search_icon' size={30} />
+          <input type="text" value={disease} onChange={onHandleChange} placeholder='질병 이름을 입력해 보세요.' />
+          <FaSearch onClick={onHandleClick} className='search_icon' size={30} />
         </SearchContainer>
       </RecommendTopbox>
       <SwiperContainer>
@@ -159,7 +176,8 @@ const RecommendPage = () => {
         </Swiper>
       </SwiperContainer>
     </RecommendContainer>
+    </>
   )
 }
 
-export default RecommendPage
+export default FindStorePillPage 
