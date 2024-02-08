@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import Search from '../components/Search';
+import { postLogin, postLogout } from '../apis/User';
 import {
   Main,
-  SearchInput,
   Container,
   ContentBox,
   SquareBtn,
@@ -14,19 +15,62 @@ import {
 } from '../styles/MainPage';
 
 const MainPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const isLogin = sessionStorage.getItem('isLogin');
+  const sessionId = sessionStorage.getItem('sessionId');
+
+  const handleLogin = async () => {
+    try {
+      const response = await postLogin({ email, password });
+      sessionStorage.setItem('isLogin', true);
+      sessionStorage.setItem('sessionId', response.data);
+      alert('로그인 성공');
+      window.location.reload();
+    } catch (error) {
+      alert('로그인 실패');
+    }
+  };
+  const handleLogout = async () => {
+    try {
+      const response = await postLogout();
+      sessionStorage.setItem('isLogin', false);
+      sessionStorage.removeItem('sessionId');
+      alert('로그아웃 성공');
+      window.location.reload();
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+      alert('로그아웃 실패');
+    }
+  };
+
   return (
     <Main>
       <Search placeholder={'약 이름을 입력하세요'}></Search>
       <Container>
-        <ContentBox>
-          <Title>&nbsp;&nbsp;회원 로그인</Title>
-          <LoginInput placeholder={'아이디'} />
-          <LoginInput placeholder={'비밀번호'} />
-          <SquareBtn>로그인</SquareBtn>
-          <StyledLink to={'/sign-up'}>회원가입</StyledLink>
-          <StyledLink to={'/sign-up'}>아이디 찾기</StyledLink>
-          <StyledLink to={'/sign-up'}>비밀번호 찾기</StyledLink>
-        </ContentBox>
+        {isLogin && sessionId ? (
+          <ContentBox>
+            누구누구님 반갑습니다.
+            <SquareBtn>마이페이지</SquareBtn>
+            <SquareBtn onClick={handleLogout}>로그아웃</SquareBtn>
+          </ContentBox>
+        ) : (
+          <ContentBox>
+            <Title>&nbsp;&nbsp;회원 로그인</Title>
+            <LoginInput placeholder={'아이디'} value={email} onChange={(e) => setEmail(e.target.value)} />
+            <LoginInput
+              placeholder={'비밀번호'}
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <SquareBtn onClick={handleLogin}>로그인</SquareBtn>
+            <StyledLink to={'/sign-up'}>회원가입</StyledLink>
+            <StyledLink to={'/sign-up'}>아이디 찾기</StyledLink>
+            <StyledLink to={'/sign-up'}>비밀번호 찾기</StyledLink>
+          </ContentBox>
+        )}
+
         <ContentBox>
           <Title>&nbsp;&nbsp;폐의약품 처리 방법</Title>
           <Image src="src/imgs/약상자.png"></Image>
