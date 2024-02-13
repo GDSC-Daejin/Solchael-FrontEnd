@@ -8,6 +8,7 @@ import ProcessPage from './pages/ProcessPage';
 import Mypage from './pages/Mypage';
 import DetailSearchPage from './pages/DetailSearchPage';
 import StorePillpage from './pages/StorePillpage';
+import CollectionBoxMapPage from './pages/CollectionBoxMapPage';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/findstorepill" element={<StorePillFindPage/>}></Route>
           <Route path="/storepill/:name" element={<StorePillpage />}></Route>
           <Route path="/process" element={<ProcessPage />}></Route>
+          <Route path="/collectionmap" element={<CollectionBoxMapPage />}></Route>
           <Route path="/mypage" element={<Mypage />}></Route>
         </Routes>
       </BrowserRouter>
