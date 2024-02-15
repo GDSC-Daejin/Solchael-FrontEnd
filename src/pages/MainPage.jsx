@@ -12,6 +12,8 @@ import {
   Image,
   SmallInput,
   RoundBtn,
+  Welcome,
+  LinkBox,
 } from '../styles/MainPage';
 
 const MainPage = () => {
@@ -19,12 +21,14 @@ const MainPage = () => {
   const [password, setPassword] = useState('');
   const isLogin = sessionStorage.getItem('isLogin');
   const sessionId = sessionStorage.getItem('sessionId');
+  const nickname = sessionStorage.getItem('nickname');
 
   const handleLogin = async () => {
     try {
       const response = await postLogin({ email, password });
       sessionStorage.setItem('isLogin', true);
-      sessionStorage.setItem('sessionId', response.data);
+      sessionStorage.setItem('sessionId', response.data.sessionId);
+      sessionStorage.setItem('nickname', response.data.nickname);
       alert('로그인 성공');
       window.location.reload();
     } catch (error) {
@@ -36,6 +40,7 @@ const MainPage = () => {
       const response = await postLogout();
       sessionStorage.setItem('isLogin', false);
       sessionStorage.removeItem('sessionId');
+      sessionStorage.removeItem('nickname');
       alert('로그아웃 성공');
       window.location.reload();
     } catch (error) {
@@ -50,7 +55,10 @@ const MainPage = () => {
       <Container>
         {isLogin && sessionId ? (
           <ContentBox>
-            누구누구님 반갑습니다.
+            <Welcome>
+              {nickname}님 <br />
+              반갑습니다.
+            </Welcome>
             <SquareBtn>마이페이지</SquareBtn>
             <SquareBtn onClick={handleLogout}>로그아웃</SquareBtn>
           </ContentBox>
@@ -65,9 +73,11 @@ const MainPage = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <SquareBtn onClick={handleLogin}>로그인</SquareBtn>
-            <StyledLink to={'/sign-up'}>회원가입</StyledLink>
-            <StyledLink to={'/sign-up'}>아이디 찾기</StyledLink>
-            <StyledLink to={'/sign-up'}>비밀번호 찾기</StyledLink>
+            <LinkBox>
+              <StyledLink to={'/sign-up'}>회원가입</StyledLink>
+              <StyledLink to={'/sign-up'}>아이디 찾기</StyledLink>
+              <StyledLink to={'/sign-up'}>비밀번호 찾기</StyledLink>
+            </LinkBox>
           </ContentBox>
         )}
 
