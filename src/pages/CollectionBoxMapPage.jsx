@@ -1,28 +1,21 @@
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
+import axios from "axios";
+import { useQuery } from "react-query";
 
 const { kakao } = window;
 
 const CollectionBoxMapPage = () => {
 
-  const positions = [
-    {
-        title: '카카오', 
-        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-    },
-    {
-        title: '생태연못', 
-        latlng: new kakao.maps.LatLng(33.450936, 126.569477)
-    },
-    {
-        title: '텃밭', 
-        latlng: new kakao.maps.LatLng(33.450879, 126.569940)
-    },
-    {
-        title: '근린공원',
-        latlng: new kakao.maps.LatLng(33.451393, 126.570738)
-    }
-  ];
+  const fetchMapData = async () => {
+    const response = await axios.get("http://35.216.98.123:8080/api/v1/drugbox");
+    return response.data
+  }
+
+  const { data, isLoding, isError} = useQuery({
+    queryKey: ["drugBoxMap"],
+    queryFn: fetchMapData
+  })
 
   useEffect(() => {
 
@@ -30,29 +23,60 @@ const CollectionBoxMapPage = () => {
 
     const container = document.getElementById('map');
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570557),
+      center: new kakao.maps.LatLng(37.5157276361757, 127.131063164753),
       level:3
     };
     const map = new kakao.maps.Map(container, options);
 
-    for (var i = 0; i < positions.length; i ++) {
-    
+    for (let i = 0; i < data?.length; i++) {
+
+      const latlng = new kakao.maps.LatLng(data[i].latitude, data[i].longitude);
       // 마커 이미지의 이미지 크기 입니다
-      var imageSize = new kakao.maps.Size(24, 35); 
+      const imageSize = new kakao.maps.Size(24, 35); 
       
       // 마커 이미지를 생성합니다    
-      var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+      const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
       
       // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
+      const marker = new kakao.maps.Marker({
           map: map, // 마커를 표시할 지도
-          position: positions[i].latlng, // 마커를 표시할 위치
-          title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+          position: latlng, // 마커를 표시할 위치
+          title : data[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
           image : markerImage // 마커 이미지 
       });
+
+      const content = `
+        <div style="padding: 5px 10px; width:300px; ">
+          <h1 style="text-align: center; font-size: 20px; color: #2f2f2f;">${data[i].name}</h1>
+          <p style="text-align: center;">${data[i].address}</p>
+        </div>
+      `;
+
+      const infowindow = new kakao.maps.InfoWindow({
+        content: content
+      });
+
+      kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+      kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
     }
 
-  },[])
+  },[data])
+
+  function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+  }
+
+  // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+  function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+  }
+
+  if(isLoding) return <p>로딩중입니다..</p>
+  if(isError) return <p>알수 없는 오류가 생겼습니다.</p>
 
   return (
     <div>
