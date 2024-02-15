@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { BottomSheet } from 'react-spring-bottom-sheet';
+import axios from 'axios';
 
 import 'react-spring-bottom-sheet/dist/style.css'
 
@@ -7,6 +7,12 @@ import styled from 'styled-components';
 
 import { Colors } from '../styles/Colors';
 import Pill from '../imgs/알약.png';
+import Navbar from "../components/Navbar";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { useState } from 'react';
+
+import notFoundImg from "../imgs/notfoundImg.jpeg";
 
 const DetailContainer = styled.div`
   position: relative;
@@ -88,16 +94,53 @@ const ButtonContainer = styled.button`
   }
 `
 
+const SheetBox = styled.div`
+  margin: 50px 0px;
+  text-align: center;
+  border-top: 1px solid #E0E0E0;
+  img {
+    width: 20%;
+    object-fit: cover;
+  }
+  p {
+    width: 600px;
+    margin: 0 auto;
+    font-size: 26px;
+  }
+  @media screen and (max-width: 460px) {
+    p {
+      width: auto;
+      padding: 10px 30px;
+      font-size: 20px;
+    }
+  }
+`
+
 const DetailPage = () => {
-  
+
+  const {id} = useParams();
   const [open, setOpen] = useState(false);
+
+  const fetchDetailPill = async () => {
+    const response = await axios.get(`http://35.216.98.123:8080/api/v1/medicine/${id}`);
+    return response.data;
+  }
+
+  const {data, isError, isLoading} = useQuery({
+    queryKey: ["findDetailPill"],
+    queryFn: fetchDetailPill
+  })
 
   const handleDismiss = () => {
     setOpen(false)
   }
 
+  if(isError) return <p>에러가 발생했습니다..</p>
+  if(isLoading) return <p>로딩중입니다..</p>
+
   return (
     <>
+    <Navbar/>
     <DetailContainer>
       <DetailImgBox>
         <div>
@@ -105,25 +148,31 @@ const DetailPage = () => {
         </div>
       </DetailImgBox>
       <DetailIntroBox>
-        <h1>게보린</h1>
+        <h1>{data?.name}</h1>
         <h1>사용법</h1>
-        <p>이걸 사용하려면 어쩌구 저쩌구 이러쿵 저러쿵 뚝딱뚝딱 이렇게 저렇게...</p>
-        <h1>효능</h1>
-        <p>게보린은 한국인에게 가장 친근한 진통제중 하나로 심한 통증이라도 투약 후 5 ~ 20분 이내에 효과가 나타납니다.</p>
+        <p>{data?.useMethodQesitm}</p>
+        <h1>부작용</h1>
+        <p>{data?.efcyQesitm}</p>
       </DetailIntroBox>
       <ButtonContainer onClick={() => setOpen(!open)}>더 자세한 정보</ButtonContainer>
-      <div className="SheetContainer">
-        <BottomSheet 
-          open={open}
-          snapPoints={({ minHeight, maxHeight }) => [minHeight * 7, maxHeight * 0.5]}
-          onDismiss={handleDismiss}
-        >
-          <div className="SheetBox">box</div>
-          <div className="SheetBox">box</div>
-          <div className="SheetBox">box</div>
-          <div className="SheetBox">box</div>
-        </BottomSheet>
-      </div>
+      <BottomSheet 
+        open={open}
+        snapPoints={({ minHeight, maxHeight }) => [minHeight * 1.5, maxHeight * 0.5]}
+        onDismiss={handleDismiss}
+      >
+        <SheetBox>
+          <h1>약 제품 사진</h1>
+          <img src={data?.itemImage ?? notFoundImg} alt="#" />
+        </SheetBox>
+        <SheetBox>
+          <h1>주의 사항</h1>
+          <p>{data?.atpnQesitm}</p>
+        </SheetBox>
+        <SheetBox>
+          <h1>주의 사항-2</h1>
+          <p>{data?.seQesitm}</p>
+        </SheetBox>
+      </BottomSheet>
     </DetailContainer>
     </>
   )

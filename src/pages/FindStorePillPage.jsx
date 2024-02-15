@@ -11,6 +11,9 @@ import { Colors } from '../styles/Colors';
 import Cold from '../imgs/감기.png';
 import Indigestion from '../imgs/소화불량.png';
 import Headache from '../imgs/두통.png';
+import { useState } from 'react';
+import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const RecommendContainer = styled.div``;
 
@@ -32,7 +35,7 @@ const SearchContainer = styled.div`
     height: 50px;
     padding: 10px 40px;
     font-size: 2rem;
-    outline: 3px solid ${Colors.main3};
+    outline: none;
     border: none;
     border-radius: 30px;
     @media screen and (max-width: 460px) {
@@ -48,7 +51,6 @@ const SearchContainer = styled.div`
     padding: 20px;
     background-color: ${Colors.main3};
     border-radius: 0px 30px 30px 0px;
-    outline: 3px solid ${Colors.main3};
     cursor: pointer;
     @media screen and (max-width: 460px) {
       padding: 13px;
@@ -104,61 +106,75 @@ const SwiperContainer = styled.div`
   }
 `;
 
-const RecommendPage = () => {
+const FindStorePillPage = () => {
+  const navigate = useNavigate();
+  const [disease, setDisease] = useState('');
+
+  const onHandleChange = (e) => {
+    setDisease(e.target.value);
+  };
+
+  const onHandleClick = () => {
+    navigate(`/storepill/${disease}`);
+  };
+
   return (
-    <RecommendContainer>
-      <RecommendTopbox>
-        <SearchContainer>
-          <input type="text" placeholder="질병 이름을 입력해 보세요." />
-          <FaSearch className="search_icon" size={30} />
-        </SearchContainer>
-      </RecommendTopbox>
-      <SwiperContainer>
-        <Swiper
-          modules={[Autoplay]}
-          spaceBetween={100}
-          slidesPerView={3}
-          autoplay={{
-            delay: 2000,
-            disableOnInteraction: false,
-          }}
-          breakpoints={{
-            300: {
-              slidesPerView: 2,
-              spaceBetween: 30,
-            },
-            900: {
-              slidesPerView: 3,
-              spaceBetween: 40,
-            },
-          }}
-          onSlideChange={() => console.log('slide change')}
-        >
-          <SwiperSlide className="slide">
-            <img src={Cold} alt="#" />
-            <div>
-              <h1>감기</h1>
-              <button>필요한 약 보러 가기</button>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="slide">
-            <img src={Indigestion} alt="#" />
-            <div>
-              <h1>소화불량</h1>
-              <button>필요한 약 보러 가기</button>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className="slide">
-            <img src={Headache} alt="#" />
-            <div>
-              <h1>두통</h1>
-              <button>필요한 약 보러 가기</button>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </SwiperContainer>
-    </RecommendContainer>
+    <>
+      <Navbar />
+      <RecommendContainer>
+        <RecommendTopbox>
+          <SearchContainer>
+            <input type="text" value={disease} onChange={onHandleChange} placeholder="질병 이름을 입력해 보세요." />
+            <FaSearch onClick={onHandleClick} className="search_icon" size={30} />
+          </SearchContainer>
+        </RecommendTopbox>
+        <SwiperContainer>
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={100}
+            slidesPerView={3}
+            autoplay={{
+              delay: 2000,
+              disableOnInteraction: false,
+            }}
+            breakpoints={{
+              300: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+              },
+              900: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+            }}
+            onSlideChange={() => console.log('slide change')}
+          >
+            <SwiperSlide className="slide">
+              <img src={Cold} alt="#" />
+              <div>
+                <h1>감기</h1>
+                <button>필요한 약 보러 가기</button>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="slide">
+              <img src={Indigestion} alt="#" />
+              <div>
+                <h1>소화불량</h1>
+                <button>필요한 약 보러 가기</button>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="slide">
+              <img src={Headache} alt="#" />
+              <div>
+                <h1>두통</h1>
+                <button>필요한 약 보러 가기</button>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </SwiperContainer>
+      </RecommendContainer>
+    </>
   );
 };
 
-export default RecommendPage;
+export default FindStorePillPage;
