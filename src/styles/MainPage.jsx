@@ -46,9 +46,13 @@ export const SquareBtn = styled.button`
   font-size: 1.1rem;
   padding: 10px;
   width: 100%;
-  margin: 40px 0 25px;
+  margin: 20px 0 7px;
   border: none;
   font-weight: 600;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
 `;
 export const LoginInput = styled.input`
   width: calc(100% - 20px);
@@ -58,11 +62,15 @@ export const LoginInput = styled.input`
   padding: 12px 10px;
   margin-top: 20px;
   font-size: 1rem;
+  & + & {
+    margin-bottom: 20px;
+  }
 `;
 
 export const LinkBox = styled.div`
   display: flex;
   justify-content: space-around;
+  margin-top: 18px;
 `;
 export const StyledLink = styled(Link)`
   color: #000;
@@ -78,15 +86,18 @@ export const Image = styled.img`
   aspect-ratio: 1/1;
   object-fit: contain;
 `;
-export const RoundBtn = styled.button`
+export const RoundLink = styled(Link)`
   background-color: ${Colors.main3};
   color: #fff;
   border-radius: 20px;
   font-size: 1rem;
-  padding: 7px;
-  width: 100%;
+  padding: 10px;
+  width: 200px;
   border: none;
   font-weight: 600;
+  text-decoration: none;
+  display: block;
+  text-align: center;
 `;
 
 export const Welcome = styled.div`

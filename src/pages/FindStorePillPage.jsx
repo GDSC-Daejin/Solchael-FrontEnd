@@ -18,24 +18,27 @@ import { useNavigate } from 'react-router-dom';
 const RecommendContainer = styled.div``;
 
 const RecommendTopbox = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 500px;
   background-color: ${Colors.main2};
-  @media screen and (max-width: 460px) {
-    height: 300px;
-  }
+  border-radius: 0 0 25px 25px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
 `;
 
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 40px;
   input {
     width: 50vw;
     height: 50px;
-    padding: 10px 40px;
+    padding: 10px 30px;
     font-size: 2rem;
-    outline: none;
+    outline: 3px solid ${Colors.main3};
     border: none;
     border-radius: 30px;
     @media screen and (max-width: 460px) {
@@ -48,9 +51,10 @@ const SearchContainer = styled.div`
   .search_icon {
     position: relative;
     left: -50px;
-    padding: 20px;
+    padding: 22px;
     background-color: ${Colors.main3};
     border-radius: 0px 30px 30px 0px;
+    outline: 3px solid ${Colors.main3};
     cursor: pointer;
     @media screen and (max-width: 460px) {
       padding: 13px;
@@ -125,7 +129,7 @@ const FindStorePillPage = () => {
         <RecommendTopbox>
           <SearchContainer>
             <input type="text" value={disease} onChange={onHandleChange} placeholder="질병 이름을 입력해 보세요." />
-            <FaSearch onClick={onHandleClick} className="search_icon" size={30} />
+            <FaSearch onClick={onHandleClick} className="search_icon" size={26} />
           </SearchContainer>
         </RecommendTopbox>
         <SwiperContainer>
