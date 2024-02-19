@@ -118,6 +118,7 @@ const SwiperContainer = styled.div`
       outline: none;
       font-size: 20px;
       color: white;
+      cursor: pointer;
       @media screen and (max-width: 460px) {
         width: 150px;
         font-size: 1rem;
@@ -285,21 +286,21 @@ const FindStorePillPage = () => {
             <img src={Cold} alt="#" />
             <div>
               <h1>감기</h1>
-              <button>필요한 약 보러 가기</button>
+              <button onClick={() => (navigate(`/storepill/감기`))}>필요한 약 보러 가기</button>
             </div>
           </SwiperSlide>
           <SwiperSlide className='slide'>
             <img src={Indigestion} alt="#" />
             <div>
               <h1>소화불량</h1>
-              <button>필요한 약 보러 가기</button>
+              <button onClick={() => (navigate(`/storepill/소화불량`))}>필요한 약 보러 가기</button>
             </div>
           </SwiperSlide>
           <SwiperSlide className='slide'>
             <img src={Headache} alt="#" />
             <div>
               <h1>두통</h1>
-              <button>필요한 약 보러 가기</button>
+              <button onClick={() => (navigate(`/storepill/두통`))}>필요한 약 보러 가기</button>
             </div>
           </SwiperSlide>
         </Swiper>
