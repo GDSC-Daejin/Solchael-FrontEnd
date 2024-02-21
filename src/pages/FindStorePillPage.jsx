@@ -52,7 +52,7 @@ const SearchContainer = styled.div`
   input {
     width: 50vw;
     height: 50px;
-    padding: 10px 40px;
+    padding: 10px 30px;
     font-size: 2rem;
     outline: none;
     border: none;
@@ -68,7 +68,7 @@ const SearchContainer = styled.div`
   .search_icon {
     position: relative;
     left: -50px;
-    padding: 20px;
+    padding: 22px;
     background-color: ${Colors.main3};
     border-radius: 0px 30px 30px 0px;
     cursor: pointer;
@@ -237,17 +237,16 @@ const TalkBottomBox = styled.div`
 
 
 const FindStorePillPage = () => {
-
   const navigate = useNavigate();
-  const [disease, setDisease] = useState("");
+  const [disease, setDisease] = useState('');
 
   const onHandleChange = (e) => {
-    setDisease(e.target.value)
-  }
+    setDisease(e.target.value);
+  };
 
   const onHandleClick = () => {
-    navigate(`/storepill/${disease}`)
-  }
+    navigate(`/storepill/${disease}`);
+  };
 
   return (
     <>

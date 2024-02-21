@@ -1,28 +1,24 @@
 import styled from 'styled-components';
 import { Colors } from '../styles/Colors';
 import { FaSearch } from 'react-icons/fa';
-import { GoArrowLeft } from 'react-icons/go';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export const GreenContainer = styled.div`
   background-color: ${Colors.main2};
   border-radius: 0 0 25px 25px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 100%;
-  height: 40vh;
+  height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-const TopContainer = styled.div`
-  display: flex;
-  width: 96%;
-  margin: 10px 0 8vh;
-  justify-content: space-between;
 `;
 
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 40px;
   input {
     width: 50vw;
     height: 50px;
@@ -38,29 +34,38 @@ const SearchContainer = styled.div`
       font-size: 20px;
     }
   }
-  .search_icon {
-    position: relative;
-    left: -50px;
-    padding: 22px;
-    background-color: ${Colors.main3};
-    border-radius: 0px 30px 30px 0px;
-    outline: 3px solid ${Colors.main3};
-    cursor: pointer;
-    @media screen and (max-width: 460px) {
-      padding: 13px;
+  a {
+    color: #000;
+    .search_icon {
+      position: relative;
+      left: -50px;
+      top: 2px;
+      padding: 22px;
+      background-color: ${Colors.main3};
+      border-radius: 0px 30px 30px 0px;
+      outline: 3px solid ${Colors.main3};
+      cursor: pointer;
+      @media screen and (max-width: 460px) {
+        padding: 13px;
+      }
     }
   }
 `;
 
 const Search = ({ placeholder }) => {
+  const [pillName, setPillName] = useState('');
+
+  const onHandleChange = (e) => {
+    setPillName(e.target.value);
+  };
+
   return (
     <GreenContainer>
-      <TopContainer>
-        <GoArrowLeft size={40} /> <div>알약공장</div>
-      </TopContainer>
       <SearchContainer>
-        <input type="text" placeholder={placeholder} />
-        <FaSearch className="search_icon" size={26} />
+        <input type="text" placeholder={placeholder} value={pillName} onChange={onHandleChange} />
+        <Link to={'/detailsearch'} state={{ name: pillName }}>
+          <FaSearch className="search_icon" size={26} />
+        </Link>
       </SearchContainer>
     </GreenContainer>
   );

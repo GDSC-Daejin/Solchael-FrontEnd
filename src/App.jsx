@@ -10,7 +10,6 @@ import DetailSearchPage from './pages/DetailSearchPage';
 import StorePillpage from './pages/StorePillpage';
 import CollectionBoxMapPage from './pages/CollectionBoxMapPage';
 
-
 function App() {
   return (
     <>
@@ -18,9 +17,9 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />}></Route>
           <Route path="/sign-up" element={<SignUpPage />}></Route>
-          <Route path="/detailsearch" element={<DetailSearchPage />}></Route>
+          <Route path="/detailsearch" Component={DetailSearchPage}></Route>
           <Route path="/detail/:id" element={<DetailPage />}></Route>
-          <Route path="/findstorepill" element={<StorePillFindPage/>}></Route>
+          <Route path="/findstorepill" element={<StorePillFindPage />}></Route>
           <Route path="/storepill/:name" element={<StorePillpage />}></Route>
           <Route path="/process" element={<ProcessPage />}></Route>
           <Route path="/collectionmap" element={<CollectionBoxMapPage />}></Route>

@@ -1,22 +1,22 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { FaCapsules } from "react-icons/fa";
-import { BsCapsule } from "react-icons/bs";
-import { MdDelete } from "react-icons/md";
+import { FaCapsules } from 'react-icons/fa';
+import { BsCapsule } from 'react-icons/bs';
+import { MdDelete } from 'react-icons/md';
 
 import { Colors } from '../styles/Colors';
 import Pills from '../imgs/알약들.png';
-import Navbar from "../components/Navbar";
+import Navbar from '../components/Navbar';
 
 const MypageContainer = styled.div`
-  background-color: #F4F4F4;
-`
+  background-color: #f4f4f4;
+`;
 
-const MypageIntroBox= styled.div`
+const MypageIntroBox = styled.div`
   background-color: ${Colors.main2};
   padding-bottom: 50px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-`
+`;
 
 const MypageUserInfoBox = styled.div`
   display: flex;
@@ -26,7 +26,6 @@ const MypageUserInfoBox = styled.div`
   h1 {
     font-size: 4rem;
     font-weight: bold;
-    
   }
   img {
     width: 150px;
@@ -43,7 +42,7 @@ const MypageUserInfoBox = styled.div`
       font-size: 2rem;
     }
   }
-`
+`;
 
 const MypageMenuBox = styled.div`
   display: flex;
@@ -64,7 +63,7 @@ const MypageMenuBox = styled.div`
   @media screen and (max-width: 460px) {
     width: 90%;
   }
-`
+`;
 
 const MypageCapsuleContainer = styled.div`
   display: flex;
@@ -78,7 +77,7 @@ const MypageCapsuleContainer = styled.div`
   @media screen and (max-width: 460px) {
     width: 90%;
   }
-`
+`;
 
 const MypageCapsuleBox = styled.div`
   display: flex;
@@ -96,7 +95,7 @@ const MypageCapsuleBox = styled.div`
     }
     h3 {
       font-size: 2rem;
-      color: #B3B3B3;
+      color: #b3b3b3;
     }
   }
   .right {
@@ -104,7 +103,7 @@ const MypageCapsuleBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #EC787F;
+    background-color: #ec787f;
     border-radius: 0px 30px 30px 0px;
     cursor: pointer;
   }
@@ -123,48 +122,57 @@ const MypageCapsuleBox = styled.div`
       width: 90px;
     }
   }
-`
+`;
 
 const Mypage = () => {
+  const capsul = [
+    { name: '게보린', date: '2023.9.30' },
+    { name: '게보린', date: '2023.9.30' },
+    { name: '게보린', date: '2023.9.30' },
+  ];
 
-  const capsul = [{ name: '게보린', date: '2023.9.30'},{ name: '게보린', date: '2023.9.30'},{ name: '게보린', date: '2023.9.30'}]
+  const nickname = sessionStorage.getItem('nickname');
 
   return (
     <>
-    <Navbar/>
-    <MypageContainer>
-      <MypageIntroBox>
-        <MypageUserInfoBox>
-          <h1>chan 님,<br/>안녕하세요.</h1>
-          <img src={Pills} alt="test" />
-        </MypageUserInfoBox>
-        <MypageMenuBox>
-          <div>
-            <FaCapsules size={40}/>
-            <h2>저장한 알약들</h2>
-          </div>
-          <div>
-            <BsCapsule size={40}/>
-            <h2>나의 알약</h2>
-          </div>
-        </MypageMenuBox>
-      </MypageIntroBox>
-      <MypageCapsuleContainer>
-        {capsul.map((item,index) => (
-          <MypageCapsuleBox key={index}>
-            <div className="left">
-              <h1>{item.name}</h1>
-              <h3>{item.date}까지</h3>
+      <Navbar />
+      <MypageContainer>
+        <MypageIntroBox>
+          <MypageUserInfoBox>
+            <h1>
+              {nickname} 님,
+              <br />
+              안녕하세요.
+            </h1>
+            <img src={Pills} alt="test" />
+          </MypageUserInfoBox>
+          <MypageMenuBox>
+            <div>
+              <FaCapsules size={40} />
+              <h2>저장한 알약들</h2>
             </div>
-            <div className="right">
-              <MdDelete size={40}/>
+            <div>
+              <BsCapsule size={40} />
+              <h2>나의 알약</h2>
             </div>
-        </MypageCapsuleBox>
-        ))}
-      </MypageCapsuleContainer>
-    </MypageContainer>
+          </MypageMenuBox>
+        </MypageIntroBox>
+        <MypageCapsuleContainer>
+          {capsul.map((item, index) => (
+            <MypageCapsuleBox key={index}>
+              <div className="left">
+                <h1>{item.name}</h1>
+                <h3>{item.date}까지</h3>
+              </div>
+              <div className="right">
+                <MdDelete size={40} />
+              </div>
+            </MypageCapsuleBox>
+          ))}
+        </MypageCapsuleContainer>
+      </MypageContainer>
     </>
-  )
-}
+  );
+};
 
-export default Mypage
+export default Mypage;

@@ -37,32 +37,47 @@ export const SmallInput = styled.input`
 export const Title = styled.div`
   font-size: 22px;
   font-weight: 600;
+  margin-bottom: 10px;
 `;
 export const SquareBtn = styled.button`
   background-color: ${Colors.main3};
   color: #fff;
   border-radius: 0px;
-  font-size: 1rem;
-  padding: 7px;
+  font-size: 1.1rem;
+  padding: 10px;
   width: 100%;
-  margin-top: 30px;
+  margin: 20px 0 7px;
   border: none;
   font-weight: 600;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
 `;
 export const LoginInput = styled.input`
   width: calc(100% - 20px);
   border-radius: 3px;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
   border: none;
-  padding: 10px;
+  padding: 12px 10px;
   margin-top: 20px;
+  font-size: 1rem;
+  & + & {
+    margin-bottom: 20px;
+  }
 `;
 
+export const LinkBox = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 18px;
+`;
 export const StyledLink = styled(Link)`
   color: #000;
-  font-size: 10px;
+  font-size: 14px;
+  text-decoration: none;
   :hover {
-    color: ${Colors.green8};
+    color: ${Colors.main3};
   }
 `;
 
@@ -71,13 +86,26 @@ export const Image = styled.img`
   aspect-ratio: 1/1;
   object-fit: contain;
 `;
-export const RoundBtn = styled.button`
+export const RoundLink = styled(Link)`
   background-color: ${Colors.main3};
   color: #fff;
   border-radius: 20px;
   font-size: 1rem;
-  padding: 7px;
-  width: 100%;
+  padding: 10px;
+  width: 200px;
   border: none;
   font-weight: 600;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+`;
+
+export const Welcome = styled.div`
+  font-size: 22px;
+  font-weight: 600;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
