@@ -92,7 +92,7 @@ const MainPage = () => {
             <RoundLink to={'/process'}>보러 가기</RoundLink>
           </ContentBox>
           <ContentBox>
-            <Title>편의점 약 추천</Title>
+            <Title>증상별 편의점 약 추천</Title>
             <Image src="src/imgs/약편의점.png"></Image>
             <RoundLink to={'/findstorepill'}>보러 가기</RoundLink>
           </ContentBox>
