@@ -96,6 +96,11 @@ const MainPage = () => {
             <Image src="src/imgs/약편의점.png"></Image>
             <RoundLink to={'/findstorepill'}>보러 가기</RoundLink>
           </ContentBox>
+          <ContentBox>
+            <Title>폐의약품 수거함 위치</Title>
+            <Image src="src/imgs/폐의약품수거함.jpg"></Image>
+            <RoundLink to={'/collectionmap'}>보러 가기</RoundLink>
+          </ContentBox>
         </Container>
       </Main>
     </>
