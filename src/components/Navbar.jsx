@@ -8,10 +8,11 @@ const NavbarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0px 40px;
+  background-color: white;
   box-shadow:
     rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  background-color: ${Colors.main2};
+  z-index: 999;
   .back-icons {
     cursor: pointer;
     transition: all 0.7s;

@@ -9,16 +9,16 @@ const { kakao } = window;
 const KakaoContainer = styled.div`
   .inputdiv {
     position: absolute;
+    width: 380px;
     z-index: 999;
     top: 120px;
     left: 50%;
     transform: translateX(-50%);
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     input {
       border: none;
       outline: none;
       padding: 10px;
-      width: 300px;
+      width: 70%;
       font-size: 24px;
     }
     button {
