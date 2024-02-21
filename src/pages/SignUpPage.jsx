@@ -1,6 +1,7 @@
 import { postEmailExist, postJoin, postUserExist } from '../apis/User';
 import { useState } from 'react';
 import { Container, Line, InfoContainer, Topic, GreenInput, Alert, JoinBtn } from '../styles/SignUpPage';
+import Swal from "sweetalert2";
 
 const SignUpPage = () => {
   const [nickName, setNickname] = useState('');
@@ -9,6 +10,31 @@ const SignUpPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [userExist, setUserExist] = useState(false);
   const [emailExist, setEmailExist] = useState(false);
+
+  // 중복된 이름이 있을 때
+  const handleOnImpossible= () => {
+    Swal.fire({
+      position: "top",
+      icon: "error",
+      title: "사용하실 수 없습니다.",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    });
+  }
+
+  // 중복된 이름이 없을 때
+
+  const handleOnPossible= () => {
+    Swal.fire({
+      position: "top",
+      icon: "success",
+      title: "사용하실 수 있습니다.",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    });
+  }
 
   const handleSignup = async () => {
     try {
@@ -33,14 +59,15 @@ const SignUpPage = () => {
     try {
       const userExist = await postUserExist(nickName);
       setUserExist(userExist.data);
-      console.log(userExist.data);
+      userExist.data ? handleOnPossible() : handleOnImpossible()
     } catch (error) {}
   };
   const handleEmailExist = async () => {
     try {
       const emailExist = await postEmailExist(nickName);
       setEmailExist(emailExist.data);
-      console.log(emailExist.data);
+      console.log(emailExist)
+      emailExist.data ? handleOnPossible() : handleOnImpossible()
     } catch (error) {}
   };
 
