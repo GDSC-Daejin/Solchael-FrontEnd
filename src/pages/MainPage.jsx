@@ -10,7 +10,6 @@ import {
   LoginInput,
   Title,
   Image,
-  SmallInput,
   RoundLink,
   Welcome,
   LinkBox,
@@ -90,7 +89,7 @@ const MainPage = () => {
           <ContentBox>
             <Title>&nbsp;&nbsp;폐의약품 처리 방법</Title>
             <Image src="src/imgs/약상자.png"></Image>
-            <SmallInput placeholder="약 이름을 입력하세요" fontSize={16}></SmallInput>
+            <RoundLink to={'/process'}>보러 가기</RoundLink>
           </ContentBox>
           <ContentBox>
             <Title>편의점 약 추천</Title>
