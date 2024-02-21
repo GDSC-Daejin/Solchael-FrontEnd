@@ -37,7 +37,11 @@ const RecommendTopbox = styled.div`
     z-index: -1;
   }
   @media screen and (max-width: 460px) {
-    height: 300px;
+    height: 150px;
+    margin-top: 50px;
+    img {
+      top: -300px;
+    }
   }
 `
 
@@ -58,10 +62,12 @@ const SearchContainer = styled.div`
     border: none;
     border-radius: 30px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    @media screen and (max-width: 460px) {
+    @media screen and (max-width: 490px) {
+      width: 200px;
       height: 35px;
-      margin-left: 35px;
-      padding: 10px 60px 10px 20px;
+      margin-left: 70px;
+      margin-top: 17px;
+      padding: 10px 30px 10px 20px;
       font-size: 20px;
     }
   }
@@ -72,9 +78,20 @@ const SearchContainer = styled.div`
     background-color: ${Colors.main3};
     border-radius: 0px 30px 30px 0px;
     cursor: pointer;
-    @media screen and (max-width: 460px) {
+    @media screen and (max-width: 490px) {
+      position: absolute;
+      left: 300px;
+      top: 206px;
       padding: 13px;
     }
+  }
+    @media screen and (max-width: 490px) {
+      flex-direction: column;
+      h1 {
+        margin: 10px;
+        top: 0;
+        font-size: 1rem;
+      }
   }
 `
 
@@ -91,7 +108,7 @@ const SwiperContainer = styled.div`
     img {
       width: 150px;
       object-fit: cover;
-      @media screen and (max-width: 460px) {
+      @media screen and (max-width: 490px) {
         width: 100px;
       }
     }
@@ -132,9 +149,6 @@ const RecommendMyPageContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: #9EC198;
-  h1 {
-
-  }
   button {
     position: relative;
     width: 250px;
@@ -156,6 +170,22 @@ const RecommendMyPageContainer = styled.div`
     width: 220px;
     object-fit: cover;
   }
+  @media screen and (max-width: 460px) {
+    h1 {
+      padding-left: 10px;
+      font-size: 1.2rem;
+    }
+    button {
+      width: 170px;
+      height: 40px;
+      right: 50px;
+      font-size: 1rem;
+    }
+    img {
+      right: 30px;
+      width: 130px;
+    }
+  }
 `
 
 const RecommendTalkContainer = styled.div`
@@ -173,6 +203,16 @@ const TalkTopBox = styled.div`
     margin: 0px 50px;
     background-color: #C5CBC5;
   }
+  @media screen and (max-width: 460px) {
+    flex-direction: column;
+    margin: 60px 0px;
+    h1 {
+      font-size: 1.3rem;
+    }
+    div {
+      width: 100px;
+    }
+  }
 `
 
 const TalkBottomContainer = styled.div`
@@ -180,6 +220,12 @@ const TalkBottomContainer = styled.div`
   justify-content: space-around;
   padding-top: 100px;
   height: 500px;
+  @media screen and (max-width: 460px) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 350px;
+    padding-top: 0px;
+  }
 `
 
 const TalkBottomBox = styled.div`
@@ -232,6 +278,14 @@ const TalkBottomBox = styled.div`
     background-color: ${props => props.color};
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     clip-path: polygon(0 0, 50% 100%, 100% 0);
+  }
+  @media screen and (max-width: 460px) {
+    width: 350px;
+    margin: 10px auto 50px;
+    &::after {
+      right: -295px;
+      top: 0px;
+    }
   }
 `
 
