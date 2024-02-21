@@ -7,6 +7,7 @@ import { MdDelete } from 'react-icons/md';
 import { Colors } from '../styles/Colors';
 import Pills from '../imgs/알약들.png';
 import Navbar from '../components/Navbar';
+import { Link } from 'react-router-dom';
 
 const MypageContainer = styled.div`
   background-color: #f4f4f4;
@@ -16,16 +17,20 @@ const MypageIntroBox = styled.div`
   background-color: ${Colors.main2};
   padding-bottom: 50px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 0 0 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const MypageUserInfoBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 100px;
   h1 {
     font-size: 4rem;
     font-weight: bold;
+    width: 600px;
   }
   img {
     width: 150px;
@@ -57,7 +62,7 @@ const MypageMenuBox = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 30px 0px;
+    margin: 30px 0px 20px;
     cursor: pointer;
   }
   @media screen and (max-width: 460px) {
@@ -71,6 +76,7 @@ const MypageCapsuleContainer = styled.div`
   align-items: center;
   width: 60%;
   margin: 50px auto;
+  padding-top: 30px;
   background-color: white;
   border-radius: 15px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -83,18 +89,18 @@ const MypageCapsuleBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 70%;
-  margin: 30px 0px;
+  margin-bottom: 30px;
   background-color: white;
   border-radius: 0px 30px 30px 0px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   .left {
     padding-left: 50px;
     h1 {
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: bold;
     }
     h3 {
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: #b3b3b3;
     }
   }
@@ -156,6 +162,7 @@ const Mypage = () => {
               <h2>나의 알약</h2>
             </div>
           </MypageMenuBox>
+          <Link to="mypillSearch">내 약 등록하기</Link>
         </MypageIntroBox>
         <MypageCapsuleContainer>
           {capsul.map((item, index) => (
