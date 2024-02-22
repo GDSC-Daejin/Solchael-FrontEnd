@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Colors } from '../../styles/Colors';
-import { postPill, postPtpPill } from '../../apis/MyPill';
+import { createPillMutation , createPtpPillMutation } from '../../apis/MyPill';
 
 const ModalWrapper = styled.div`
   box-sizing: border-box;
@@ -111,13 +111,13 @@ const Modal = ({ setModal, medicineId }) => {
   };
 
   const usePostPill = async () => {
-    const response = await postPill(medicineId, type);
-    console.log(response);
+    const data = { type: type, startTime: '2024-02-21T09:59:21.055Z' }
+    createPillMutation.mutate(data);
   };
 
   const usePostPtpPill = async () => {
-    const response = await postPtpPill(medicineId);
-    console.log(response);
+    const data = {startTime: '2024-02-21T09:59:21.055Z'}
+    createPtpPillMutation.mutate(data)
   };
   return (
     <>
