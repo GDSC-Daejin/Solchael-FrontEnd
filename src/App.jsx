@@ -9,6 +9,7 @@ import Mypage from './pages/Mypage';
 import DetailSearchPage from './pages/DetailSearchPage';
 import StorePillpage from './pages/StorePillpage';
 import CollectionBoxMapPage from './pages/CollectionBoxMapPage';
+import MypillSearch from './pages/MypillSearch';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/process" element={<ProcessPage />}></Route>
           <Route path="/collectionmap" element={<CollectionBoxMapPage />}></Route>
           <Route path="/mypage" element={<Mypage />}></Route>
+          <Route path="/mypage/mypillSearch" element={<MypillSearch />}></Route>
         </Routes>
       </BrowserRouter>
     </>
