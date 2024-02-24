@@ -5,8 +5,8 @@ import { FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
 import React from 'react';
 import Navbar from '../components/Navbar';
-import { getPillSearch, postPill } from '../apis/MyPill';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { getPillSearch } from '../apis/MyPill';
+import { useNavigate } from 'react-router-dom';
 import Modal from '../layouts/Mypage/Modal';
 
 export const GreenContainer = styled.div`
@@ -118,12 +118,6 @@ const MypillSearch = () => {
       const response = await getPillSearch(name);
       setResult(response.data);
     } catch (error) {}
-  };
-
-  const usePostPill = async (medicineId) => {
-    postPill(medicineId);
-    setModal(false);
-    navigate(`/mypage`);
   };
 
   return (

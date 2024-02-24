@@ -8,7 +8,7 @@ const NavbarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0px 40px;
-  background-color: white;
+  background-color: ${Colors.main2};
   box-shadow:
     rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -32,7 +32,7 @@ const Navbar = () => {
   return (
     <NavbarContainer>
       <IoMdArrowRoundBack className="back-icons" size={40} onClick={handleOnClick} />
-      <h1>알약 공장</h1>
+      <h1 onClick={() => navigate('/')}>알약 공장</h1>
     </NavbarContainer>
   );
 };

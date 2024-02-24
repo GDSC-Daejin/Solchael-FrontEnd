@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Colors } from '../../styles/Colors';
-import { postPill, postPtpPill } from '../../apis/MyPill';
+import { useCreatePillMutation, useCreatePtpPillMutation } from '../../apis/MyPill';
+import { useNavigate } from 'react-router-dom';
 
 const ModalWrapper = styled.div`
   box-sizing: border-box;
@@ -92,6 +93,10 @@ const SubmitBtn = styled.div`
 `;
 
 const Modal = ({ setModal, medicineId }) => {
+  const createPillMutation = useCreatePillMutation(medicineId);
+  const createPtpPillMutation = useCreatePtpPillMutation(medicineId);
+  const navigate = useNavigate();
+
   const pillType = [
     { type: 'PILL', name: '알약' },
     { type: 'SYRUP', name: '시럽약' },
@@ -101,6 +106,11 @@ const Modal = ({ setModal, medicineId }) => {
     { type: 'PTP', name: 'PTP약' },
   ];
   const [type, setType] = useState('PILL');
+  const [dateValue, setDateValue] = useState('');
+  const handleDateChange = (event) => {
+    const value = event.target.value;
+    setDateValue(value);
+  };
 
   useEffect(() => {
     document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
@@ -111,13 +121,16 @@ const Modal = ({ setModal, medicineId }) => {
   };
 
   const usePostPill = async () => {
-    const response = await postPill(medicineId, type);
-    console.log(response);
+    const data = { type: type, startTime: `${dateValue}T09:59:21.055Z` };
+    console.log(dateValue);
+    createPillMutation.mutate(data);
+    navigate(`/mypage`);
   };
 
   const usePostPtpPill = async () => {
-    const response = await postPtpPill(medicineId);
-    console.log(response);
+    const data = { startTime: `${dateValue}T09:59:21.055Z` };
+    createPtpPillMutation.mutate(data);
+    navigate(`/mypage`);
   };
   return (
     <>
@@ -125,8 +138,7 @@ const Modal = ({ setModal, medicineId }) => {
       <ModalWrapper tabIndex="-1">
         <ModalInner tabIndex="0" className="modal-inner">
           <h1>약의 종류가 무엇인가요?</h1>
-          <button onClick={() => setModal(false)}>닫기</button>
-          {medicineId}
+          <br />
           <RadioBox>
             {pillType.map((item) => (
               <div key={item.name}>
@@ -146,7 +158,7 @@ const Modal = ({ setModal, medicineId }) => {
             <>
               <Descript>약에 쓰여있는 유통기한을 입력해주세요.</Descript>
               <br />
-              <DateInput type="date" />
+              <DateInput type="date" onChange={handleDateChange} />
               <br />
               <SubmitBtn onClick={() => usePostPtpPill()}>등록하기</SubmitBtn>
             </>
@@ -154,7 +166,7 @@ const Modal = ({ setModal, medicineId }) => {
             <>
               <Descript>처방받은 날짜를 입력해주세요.</Descript>
               <br />
-              <DateInput type="date" id="currentDate" />
+              <DateInput type="date" id="currentDate" onChange={handleDateChange} />
               <br />
               <SubmitBtn onClick={() => usePostPill()}>등록하기</SubmitBtn>
             </>
