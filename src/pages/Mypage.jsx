@@ -143,7 +143,6 @@ const Mypage = () => {
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error fetching data</div>;
   console.log(data);
-  const renew = data.slice(7);
 
   const handleDeletePill = async (id) => {
     const response = await deleteMyPills(id);
@@ -175,11 +174,11 @@ const Mypage = () => {
           </MypageMenuBox>
         </MypageIntroBox>
         <MypageCapsuleContainer>
-          {renew.map((item, index) => (
+          {data.map((item, index) => (
             <MypageCapsuleBox key={index}>
               <div className="left">
                 <h1>{item.name}</h1>
-                <h3>{item.expiration}까지</h3>
+                <h3>{item.expiration.slice(0, 10)}까지</h3>
               </div>
               <div className="right" onClick={() => handleDeletePill(item.id)}>
                 <MdDelete size={40} />
