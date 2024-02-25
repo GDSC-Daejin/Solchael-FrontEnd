@@ -50,4 +50,4 @@ export const useGetMyPills = (name) => {
   });
 };
 
-export const deleteMyPills = async (id) => await instance.delete(`api/vq/mypage/medicines/${id}`);
+export const deleteMyPills = async (id, name) => await instance.delete(`api/vq/mypage/medicines/${id}`, { name });

@@ -110,7 +110,7 @@ const MypageCapsuleBox = styled.div`
     }
   }
   .right {
-    width: 110px;
+    min-width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,7 +130,7 @@ const MypageCapsuleBox = styled.div`
       }
     }
     .right {
-      width: 90px;
+      min-width: 70px;
     }
   }
 `;
@@ -145,7 +145,7 @@ const Mypage = () => {
   console.log(data);
 
   const handleDeletePill = async (id) => {
-    const response = await deleteMyPills(id);
+    const response = await deleteMyPills(id, nickname);
     console.log(response);
   };
 
