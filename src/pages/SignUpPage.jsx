@@ -1,6 +1,7 @@
 import { postEmailExist, postJoin, postUserExist } from '../apis/User';
 import { useState } from 'react';
 import { Container, Line, InfoContainer, Topic, GreenInput, Alert, JoinBtn } from '../styles/SignUpPage';
+import Swal from 'sweetalert2';
 
 const SignUpPage = () => {
   const [nickName, setNickname] = useState('');
@@ -9,6 +10,31 @@ const SignUpPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [userExist, setUserExist] = useState(false);
   const [emailExist, setEmailExist] = useState(false);
+
+  // 중복된 이름이 있을 때
+  const handleOnImpossible = () => {
+    Swal.fire({
+      position: 'top',
+      icon: 'error',
+      title: '사용하실 수 없습니다.',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    });
+  };
+
+  // 중복된 이름이 없을 때
+
+  const handleOnPossible = () => {
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: '사용하실 수 있습니다.',
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+    });
+  };
 
   const handleSignup = async () => {
     try {
@@ -33,14 +59,15 @@ const SignUpPage = () => {
     try {
       const userExist = await postUserExist(nickName);
       setUserExist(userExist.data);
-      console.log(userExist.data);
+      userExist.data ? handleOnPossible() : handleOnImpossible();
     } catch (error) {}
   };
   const handleEmailExist = async () => {
     try {
       const emailExist = await postEmailExist(nickName);
       setEmailExist(emailExist.data);
-      console.log(emailExist.data);
+      console.log(emailExist);
+      emailExist.data ? handleOnPossible() : handleOnImpossible();
     } catch (error) {}
   };
 
@@ -52,7 +79,9 @@ const SignUpPage = () => {
         <Topic>아이디</Topic>
         <GreenInput placeholder={'이메일'} value={email} onChange={(e) => setEmail(e.target.value)} />
         <Alert>영문 소문자와 숫자만 사용하여 영문 소문자로 시작하는 4 ~ 12자의 아이디를 입력해 주세요.</Alert>
-        <button onClick={() => handleEmailExist()}>아이디 중복체크</button>
+        <button className="button-10" onClick={() => handleEmailExist()}>
+          아이디 중복체크
+        </button>
         <Topic>비밀번호</Topic>
         <GreenInput
           type={'password'}
@@ -69,7 +98,9 @@ const SignUpPage = () => {
         <Alert>영문 대문자와 소문자, 숫자, 특수문자 중 2가지 이상을 조합하여 6 ~ 20자로 입력해 주세요.</Alert>
         <Topic>닉네임</Topic>
         <GreenInput placeholder={'닉네임'} value={nickName} onChange={(e) => setNickname(e.target.value)} />
-        <button onClick={() => handleUserExist()}>닉네임 중복체크</button>
+        <button className="button-10" onClick={() => handleUserExist()}>
+          닉네임 중복체크
+        </button>
         <JoinBtn onClick={handleSignup}>가입하기</JoinBtn>
       </InfoContainer>
     </Container>

@@ -7,6 +7,18 @@ export const Main = styled.div`
   align-items: center;
   width: 100vw;
   flex-direction: column;
+  .rank_container {
+    position: absolute;
+    top: 193px;
+    left: 43%;
+    transform: translateX(-43%);
+    width: 50%;
+    background-color: aliceblue;
+    p {
+      font-size: 1.3rem;
+      padding: 5px 10px;
+    }
+  }
 `;
 
 export const Container = styled.div`

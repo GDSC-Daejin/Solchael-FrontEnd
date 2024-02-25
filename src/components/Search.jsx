@@ -3,6 +3,8 @@ import { Colors } from '../styles/Colors';
 import { FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
 export const GreenContainer = styled.div`
   background-color: ${Colors.main2};
@@ -54,18 +56,42 @@ const SearchContainer = styled.div`
 
 const Search = ({ placeholder }) => {
   const [pillName, setPillName] = useState('');
+  const [rank, setRank] = useState(false);
+  console.log(rank)
+
+  const fetchRankPill = async () => {
+    const response = await axios.get("http://35.216.98.123:8080/api/v1/rank")
+    return response.data;
+  }
+
+  const { data ,isLoading } = useQuery({
+    queryKey: ["findRankPill"],
+    queryFn: fetchRankPill
+  })
+
+  console.log(data)
 
   const onHandleChange = (e) => {
     setPillName(e.target.value);
+    setRank(true);
   };
+
+  const handleOnBlurInput = () => {
+    setRank(false);
+  }
 
   return (
     <GreenContainer>
       <SearchContainer>
-        <input type="text" placeholder={placeholder} value={pillName} onChange={onHandleChange} />
+        <input onBlur={handleOnBlurInput} type="text" placeholder={placeholder} value={pillName} onChange={onHandleChange} />
         <Link to={'/detailsearch'} state={{ name: pillName }}>
           <FaSearch className="search_icon" size={26} />
         </Link>
+        {rank && data?.map((item, index)=> (
+          <div className='rank_container' key={index}>
+            <p>{item.name}</p>
+          </div>
+        ))}
       </SearchContainer>
     </GreenContainer>
   );
